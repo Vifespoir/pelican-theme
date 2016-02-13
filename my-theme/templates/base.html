@@ -37,8 +37,8 @@
   {% include 'github.html' %}
 
   <!-- Fixed navbar -->
-  <nav id="banner" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+  <div class="container">
+    <nav id="banner" class="navbar navbar-default navbar-fixed-top">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
@@ -72,50 +72,55 @@
           </li>
         </ul>
       </div><!--/.nav-collapse -->
-    </div>
-  </nav>
+    </nav>
+  </div>
 
-  {% block content %}
-  {% endblock %}
-  <section id="extras" class="row">
-   <div class="col-sm-4">
-     {% if LINKS %}
-     <div class="panel panel-default">
-       <div class="panel-heading">
-         <h3 class="panel-title">Blogroll</h3>
-       </div>
-       <div class="panel-body">
-         <ul>
-         {% for name, link in LINKS %}
-             <li><a href="{{ link }}">{{ name }}</a></li>
-         {% endfor %}
-         </ul>
-       </div>
-     </div><!-- /.blogroll -->
-     {% endif %}
-     {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
-     <div class="panel panel-default">
-       <div class="panel-heading">
-         <h3 class="panel-title">Social</h3>
-       </div>
-       <div class="panel-body">
-         <ul>
-             {% if FEED_ALL_ATOM %}
-             <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">atom feed</a></li>
-             {% endif %}
-             {% if FEED_ALL_RSS %}
-             <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate">rss feed</a></li>
-             {% endif %}
+  <div class="container-fluid" role="main">
+    <div class="row">
+      <section class="col-lg-9 col-md-8 col-sm-7 col-xs-12" id="content">
+        {% block content %}
+        {% endblock %}
+      </section>
 
-         {% for name, link in SOCIAL %}
-             <li><a href="{{ link }}">{{ name }}</a></li>
-         {% endfor %}
-         </ul>
-       </div>
-     </div>
-     {% endif %}<!-- /.social -->
-   </div><!-- /.col-sm-4 -->
-  </section><!-- /#extras -->
+      <section id="extras">
+        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+          <div class="list-group">
+
+            {% if LINKS %}
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">Blogroll</h4>
+
+              {% for name, link in LINKS %}
+              <p class="list-group-item-text"><a href="{{ link }}">{{ name }}</a></p>
+              {% endfor %}
+
+            </div><!-- /.blogroll -->
+            {% endif %}
+
+            {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">Social</h4>
+
+              {% if FEED_ALL_ATOM %}
+              <p class="list-group-item-text"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">atom feed</a></p>
+              {% endif %}
+
+              {% if FEED_ALL_RSS %}
+              <p class="list-group-item-text"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate">rss feed</a></p>
+              {% endif %}
+
+              {% for name, link in SOCIAL %}
+              <p class="list-group-item-text"><a href="{{ link }}">{{ name }}</a></p>
+              {% endfor %}
+
+            </div>
+            {% endif %}<!-- /.social -->
+          </div>
+        </div><!-- sidebar -->
+      </section><!-- /#extras -->
+
+    </div><!-- columns -->
+  </div><!-- main -->
 
   <footer id="contentinfo" class="well">
           <address id="about" class="vcard body">
@@ -126,5 +131,6 @@
 
 {% include 'analytics.html' %}
 {% include 'disqus_script.html' %}
+</div>
 </body>
 </html>

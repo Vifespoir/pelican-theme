@@ -1,0 +1,6 @@
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+.carousel-inner .img-responsive {
+  max-height: 50vw;
+}

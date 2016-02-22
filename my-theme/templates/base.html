@@ -60,76 +60,78 @@
           {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          {% if DISPLAY_PAGES_ON_MENU -%}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              {% if DISPLAY_PAGES_ON_MENU -%}
               {% for pg in PAGES %}
-                  <li{% if pg == page %} class="dropdown-header" {% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
+              <li {% if pg == page %} class="dropdown-header" {% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
               {% endfor %}
+            </ul>
+          </li>
+          {% endif %}<!-- /.pages -->
+
+          {% if LINKS %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blogroll<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for name, link in LINKS %}
+              <li class="dropdown-header"><a href="{{ link }}">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}<!-- /.links -->
+
+          {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Feed<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
+              {% if FEED_ALL_ATOM %}
+              <li class="dropdown-header"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">atom feed</a></li>
+              {% endif %}
+
+              {% if FEED_ALL_RSS %}
+              <li class="dropdown-header"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate">rss feed</a></li>
+              {% endif %}
               {% endif %}
             </ul>
           </li>
+          {% endif %}<!-- /.feed -->
+
+          {% if SOCIAL %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Social<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for name, link in SOCIAL %}
+              <li class="dropdown-header"><a href="{{ link }}">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}<!-- /.social -->
         </ul>
       </div><!--/.nav-collapse -->
     </nav>
   </div>
 
-  <div class="container-fluid" role="main">
-    <div class="row">
-      <section class="jumbotron col-lg-9 col-md-8 col-sm-7 col-xs-12" id="content">
-        {% block content %}
-        {% endblock %}
-      </section>
-
-      <section id="extras">
-        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
-          <div class="list-group">
-
-            {% if LINKS %}
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">Blogroll</h4>
-
-              {% for name, link in LINKS %}
-              <p class="list-group-item-text"><a href="{{ link }}">{{ name }}</a></p>
-              {% endfor %}
-
-            </div><!-- /.blogroll -->
-            {% endif %}
-
-            {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">Social</h4>
-
-              {% if FEED_ALL_ATOM %}
-              <p class="list-group-item-text"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">atom feed</a></p>
-              {% endif %}
-
-              {% if FEED_ALL_RSS %}
-              <p class="list-group-item-text"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate">rss feed</a></p>
-              {% endif %}
-
-              {% for name, link in SOCIAL %}
-              <p class="list-group-item-text"><a href="{{ link }}">{{ name }}</a></p>
-              {% endfor %}
-
-            </div>
-            {% endif %}<!-- /.social -->
-          </div>
-        </div><!-- sidebar -->
-      </section><!-- /#extras -->
-
-    </div><!-- columns -->
-    {% block image %}
+  <div class="container">
+    <section class="jumbotron" id="content">
+    {% block content %}
     {% endblock %}
-  </div><!-- main -->
+    </section>
 
-  <footer id="contentinfo" class="well">
-          <address id="about" class="vcard body">
-          Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-          </address><!-- /#about -->
+    {% block images %}
+    {% endblock %}
 
-  </footer><!-- /#contentinfo -->
+    {% block comments %}
+    {% endblock %}
+
+    <footer id="contentinfo" class="well">
+      <address id="about" class="vcard body">
+      Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+      </address><!-- /#about -->
+    </footer><!-- /#contentinfo -->
+  </div>
 
 {% include 'analytics.html' %}
 {% include 'disqus_script.html' %}

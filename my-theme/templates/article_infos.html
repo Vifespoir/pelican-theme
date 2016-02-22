@@ -10,14 +10,22 @@
         {% endif %}
 
         {% if article.authors %}
-        <address class="vcard author">
-                By {% for author in article.authors %}
-                        <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
+        <address>
+          By {% for author in article.authors %}
+            <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+          {% endfor %}
         </address>
         {% endif %}
-<p>In <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>.</p>
-{% include 'taglist.html' %}
+
+  <div class="row">
+    <div class="col-md-4 col-sm-5 col-xs-12">
+      In <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+    </div>
+    <div class="col-md-8 col-sm-7 col-xs-12">
+      {% include 'taglist.html' %}
+    </div>
+  </div>
+
 {% import 'translations.html' as translations with context %}
 {{ translations.translations_for(article) }}
 </footer><!-- /.post-info -->

@@ -13,31 +13,12 @@
     {% include 'article_infos.html' %}
     {{ article.content }}
   </div><!-- /.entry-content -->
-  {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
-  <div class="comments">
-    <h2>Comments !</h2>
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_shortname = '{{ DISQUS_SITENAME }}';
-      var disqus_identifier = '{{ article.url }}';
-      var disqus_url = '{{ SITEURL }}/{{ article.url }}';
-      (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the comments.</noscript>
-  </div>
-  {% endif %}
-
 </article>
-
 {% endblock %}
 
-{% block image %}
-{% if article.photo_gallery %}
-<div class="jumbotron">
+{% block images %}
+{% if article.photo_gallery%}
+<section class="jumbotron" id="photos">
   <h2 class="entry-title">
     <a href="#my-carousel">Photos</a></h2>
   <div id="my-carousel" class="carousel slide" data-ride="carousel">
@@ -72,6 +53,25 @@
       </a>
     </div>
   </div>
-</div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block comments %}
+{% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
+  <section class="jumbotron" id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname = '{{ DISQUS_SITENAME }}';
+      var disqus_identifier = '{{ article.url }}';
+      var disqus_url = '{{ SITEURL }}/{{ article.url }}';
+      (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the comments.</noscript>
+  </section>
 {% endif %}
 {% endblock %}

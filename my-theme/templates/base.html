@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
+        <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap-theme.min.css" />
         <!-- Bootstrap theme -->
@@ -73,7 +73,7 @@
 
           {% if LINKS %}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blogroll<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects<span class="caret"></span></a>
             <ul class="dropdown-menu">
               {% for name, link in LINKS %}
               <li class="dropdown-header"><a href="{{ link }}">{{ name }}</a></li>
@@ -81,6 +81,17 @@
             </ul>
           </li>
           {% endif %}<!-- /.links -->
+
+          {% if SOCIAL %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Social<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for name, link in SOCIAL %}
+              <li class="dropdown-header"><a href="{{ link }}">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}<!-- /.social -->
 
           {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
           <li class="dropdown">
@@ -99,26 +110,14 @@
           </li>
           {% endif %}<!-- /.feed -->
 
-          {% if SOCIAL %}
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Social<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% for name, link in SOCIAL %}
-              <li class="dropdown-header"><a href="{{ link }}">{{ name }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-          {% endif %}<!-- /.social -->
         </ul>
       </div><!--/.nav-collapse -->
     </nav>
   </div>
 
   <div class="container">
-    <section class="jumbotron" id="content">
     {% block content %}
     {% endblock %}
-    </section>
 
     {% block images %}
     {% endblock %}
@@ -126,9 +125,12 @@
     {% block comments %}
     {% endblock %}
 
+    {% block page %}
+    {% endblock %}
+
     <footer id="contentinfo" class="well">
       <address id="about" class="vcard body">
-      Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+      Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>. Designed with <a href="http://jinja.pocoo.org/">Jinja2</a> and <a href="http://getbootstrap.com">Bootstrap</a>.
       </address><!-- /#about -->
     </footer><!-- /#contentinfo -->
   </div>
@@ -139,7 +141,6 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="theme/js/bootstrap.min.js"></script>
-</div>
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
 </body>
 </html>

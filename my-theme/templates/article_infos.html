@@ -1,31 +1,27 @@
-<footer class="post-info">
-        <abbr class="published" title="{{ article.date.isoformat() }}">
-                Published: {{ article.locale_date }}
-        </abbr>
-        {% if article.modified %}
-		<br />
-        <abbr class="modified" title="{{ article.modified.isoformat() }}">
-                Updated: {{ article.locale_modified }}
-        </abbr>
-        {% endif %}
+<section id="author">
+  <p>
+    <abbr title="{{ article.date.isoformat() }}">
+      Published: {{ article.locale_date }}
+    </abbr>
+    {% if article.modified %}
+    <br />
+    <abbr title="{{ article.modified.isoformat() }}">
+      Updated: {{ article.locale_modified }}
+    </abbr>
+    {% endif %}
+  </p>
 
-        {% if article.authors %}
-        <address>
-          By {% for author in article.authors %}
-            <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-          {% endfor %}
-        </address>
-        {% endif %}
+  <p class="text-left">
+    {% if article.authors %}
+    By {% for author in article.authors %}
+    <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+    {% endfor %}
+    {% endif %}
+  </p>
 
-  <div class="row">
-    <div class="col-md-4 col-sm-5 col-xs-12">
-      In <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
-    </div>
-    <div class="col-md-8 col-sm-7 col-xs-12">
-      {% include 'taglist.html' %}
-    </div>
-  </div>
+  {% import 'translations.html' as translations with context %}
+  {{ translations.translations_for(article) }}
 
-{% import 'translations.html' as translations with context %}
-{{ translations.translations_for(article) }}
-</footer><!-- /.post-info -->
+  <br />
+
+</section><!-- end article info -->

@@ -16,3 +16,11 @@
     </section>
   {% endif %}
 {% endblock %}
+{% block customjs %}
+  {% if page.slug == "hidden-app" %}
+    {% raw %}
+      {% block customjs %}
+      {% endblock %}
+    {% endraw %}
+  {% endif %}
+{% endblock %}

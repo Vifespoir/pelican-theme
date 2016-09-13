@@ -62,7 +62,7 @@
         <ul class="nav navbar-nav navbar-right">
           {% if DISPLAY_PAGES_ON_MENU -%}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages<span class="caret"></span></a>
             <ul class="dropdown-menu">
               {% for pg in PAGES %}
               <li {% if pg == page %} class="dropdown-header" {% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
@@ -82,17 +82,6 @@
           </li>
           {% endif %}<!-- /.links -->
 
-          {% if SOCIAL %}
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Social<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% for name, link in SOCIAL %}
-              <li class="dropdown-header"><a href="{{ link }}">{{ name }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-          {% endif %}<!-- /.social -->
-
           {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Feed<span class="caret"></span></a>
@@ -109,6 +98,16 @@
             </ul>
           </li>
           {% endif %}<!-- /.feed -->
+
+          {% if SOCIAL %}
+          {% for name, link in SOCIAL %}
+          <li>
+            <a href="{{ link }}" class="center-block" target="_blank">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/social/{{ name }}.png" alt="{{ name }}" style="height:30px; width:auto; margin-top:-6px;">
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}<!-- /.social -->
 
         </ul>
       </div><!--/.nav-collapse -->
@@ -130,7 +129,10 @@
 
     <footer id="contentinfo" class="well">
       <address id="about" class="vcard body">
-      Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>. Designed with <a href="http://jinja.pocoo.org/">Jinja2</a> and <a href="http://getbootstrap.com">Bootstrap</a>.
+      Blog proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+      Designed with <a href="http://jinja.pocoo.org/">Jinja2</a> and <a href="http://getbootstrap.com">Bootstrap</a>.
+      Projects superpowered by <a href="http://flask.pocoo.org/"> Flask</a>.
+      Social icons by <a href="http://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> are licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.
       </address><!-- /#about -->
     </footer><!-- /#contentinfo -->
   </div>

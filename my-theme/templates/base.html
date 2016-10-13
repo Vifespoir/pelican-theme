@@ -60,6 +60,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if DISPLAY_PAGES_ON_MENU -%}
+          {% if PAGES %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages<span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -68,6 +69,7 @@
               {% endfor %}
             </ul>
           </li>
+          {% endif %}
           {% endif %}<!-- /.pages -->
 
           {% if LINKS %}
@@ -83,11 +85,20 @@
 
           {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Feed<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/social/Atom.png" alt="{{ name }}" style="height:30px; width:auto; margin-top:-6px;">
+              <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu">
               {% if FEED_ALL_ATOM or FEED_ALL_RSS %}
               {% if FEED_ALL_ATOM %}
-              <li class="dropdown-header"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">atom feed</a></li>
+              <li class="dropdown-header"><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">General Feed</a></li>
+              {% endif %}
+              {% if CATEGORY_FEED_ATOM %}
+              {% for cat, null in categories %}
+              <li class="dropdown-header"><a href="{{ FEED_DOMAIN }}/feeds/{{ cat|lower() }}.atom.xml" type="application/atom+xml" rel="alternate">{{ cat }} Feed</a></li>
+              {% endfor %}
+
               {% endif %}
 
               {% if FEED_ALL_RSS %}

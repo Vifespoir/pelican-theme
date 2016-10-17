@@ -3,49 +3,41 @@
 {% block content %}
 <section id="index" class="jumbotron">
 {% if articles %}
-    {% for article in articles_page.object_list %}
-
-        {# First item #}
-        {% if loop.first and not articles_page.has_previous() %}
-            <aside id="featured" class="body">
-              <article>
-                <h2 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
-                  <h4>{% include 'article_infos.html' %}</h4>
-                {{ article.content }}
+  {% for article in articles_page.object_list %}
+    {# First item #}
+      {% if loop.first and not articles_page.has_previous() %}
+        <aside id="featured" class="body">
+          <article>
+            {% include 'article_infos.html' %}
+            {{ article.content|truncate(1200) }}
+            <div class="row">
+              <div class="col-md-4 col-sm-5 col-xs-12">
+                <h4><a class="readmore" href="{{ SITEURL }}/{{ article.url }}">read more</a></h4>
+              </div>
+              <div class="col-md-8 col-sm-7 col-xs-12">
                 <h4>{% include 'comments.html' %}</h4>
-              </article>
-            </aside><!-- /#featured -->
-            {% if loop.length > 1 %}
-              <h2 id="posts-list">Other articles</h2>
-            {% endif %}
-        {# other items #}
-        {% else %}
-            {% if loop.first %}
-                <section id="content">
-            {% endif %}
-                <header>
-                    <h3><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h3>
-                </header>
-                <div class="entry-content">
-                <h4>{% include 'article_infos.html' %}</h4>
-                <h3>{{ article.summary }}</h3>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 col-sm-5 col-xs-12">
-                    <h4><a class="readmore" href="{{ SITEURL }}/{{ article.url }}">read more</a></h4>
-                  </div>
-                  <div class="col-md-8 col-sm-7 col-xs-12">
-                    <h4>{% include 'comments.html' %}</h4>
-                  </div><!-- /.entry-content -->
-                </div>
+              </div><!-- /.entry-content -->
+            </div>
+          </article>
+        </aside><!-- /#featured -->
+        {% if loop.length > 1 %}
+          <h2 id="posts-list">Other articles</h2>
         {% endif %}
+      {# other items #}
+      {% else %}
+        {% if loop.first %}
+          <section id="content">
+        {% endif %}
+        {% include 'article_infos.html' %}
+        {{ article.summary }}
+      {% endif %}
         {% if loop.last %}
-            {% if loop.length > 1 or articles_page.has_other_pages() %}
-                {% if articles_page.has_other_pages() %}
-                    {% include 'pagination.html' %}
-                {% endif %}
-                </section><!-- /#content -->
-            {% endif %}
+          {% if loop.length > 1 or articles_page.has_other_pages() %}
+              {% if articles_page.has_other_pages() %}
+                  {% include 'pagination.html' %}
+              {% endif %}
+              </section><!-- /#content -->
+          {% endif %}
         {% endif %}
     {% endfor %}
 {% else %}

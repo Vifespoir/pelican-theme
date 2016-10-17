@@ -21,6 +21,7 @@
         {% if FEED_ALL_RSS %}
         <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
         {% endif %}
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/magnific-popup.css">
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,7 +29,6 @@
 
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="../../favicon.ico">
 
 </head>
 
@@ -156,5 +156,34 @@
 <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
 {% block customjs %}
 {% endblock %}
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/magnific-popup.js"></script>
+{% if (article and article.photo_gallery) or (articles_page and articles_page.object_list[0].photo_gallery) %}
+<!-- Magnific Popup core JS file -->
+<script>
+$('.gallery').magnificPopup({
+    delegate: 'a',
+    type: 'image',
+    gallery: {
+        enabled: true,
+        navigateByImgClick: true,
+        preload: [1,2]
+    },
+    image: {
+        titleSrc: function(item) {
+            if (item.el.attr('caption') && item.el.attr('exif')) {
+                return (item.el.attr('caption').replace(/\\n/g, '<br />') +
+                    '<small>' + item.el.attr('title') + ' - ' + item.el.attr('exif') + '</small>');
+            }
+        return item.el.attr('title') + '<small>' + item.el.attr('exif') + '</small>';
+    } }
+});
+</script>
+{% endif %}
+<script type="text/javascript">
+$('.magnifique-popup').magnificPopup({
+  type: 'image'
+  // other options
+});
+</script>
 </body>
 </html>
